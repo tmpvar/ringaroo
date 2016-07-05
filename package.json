@@ -1,0 +1,14 @@
+{
+  "name": "ringaroo",
+  "author": "Elijah Insua <tmpvar@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "budo entry.js --live --open"
+  },
+  "devDependencies": {
+    "budo": "^8.3.0",
+    "ctx-circle": "^1.0.0",
+    "ctx-translate-center": "^1.0.0",
+    "fc": "^1.5.2"
+  }
+}
