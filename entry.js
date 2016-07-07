@@ -11,7 +11,16 @@ var mode = gameMode
 var segments = 2
 var innerRadius = 200
 
-mode.init(segments, innerRadius)
+
+window.AudioContext = window.AudioContext||window.webkitAudioContext;
+var audioCtx = new AudioContext()
+
+
+
+gameMode.init(segments, innerRadius)
+
+gameMode.audioOn(audioCtx)
+
 
 var ctx = fc(function() {
   ctx.clear()

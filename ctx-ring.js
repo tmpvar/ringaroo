@@ -28,10 +28,9 @@ function createRing(startingIndex) {
 
   return drawRing
 
-  function drawRing(ctx, segments, radius) {
+  function drawRing(ctx, segments, radius, outerRadius) {
     var segmentSpan = TAU/segments
     var halfSpan = segmentSpan/2
-    var outerRadius = radius + 50
 
     if (lastTargetIndex !== targetIndex) {
       animating = targetIndex * segmentSpan

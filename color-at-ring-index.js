@@ -1,5 +1,6 @@
 module.exports = colorAtRingIndex
 
 function colorAtRingIndex(index, segments) {
-  return 'hsl(' + (index/segments * 360) + ', 100%, 60%)'
+  var rot = (40 + index/segments * 360) % 360
+  return 'hsl(' + rot + ', 100%, 60%)'
 }
