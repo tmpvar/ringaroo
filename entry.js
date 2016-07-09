@@ -1,31 +1,33 @@
-// TODO: smooth ring rotation
-
 var fc = require('fc')
 var center = require('ctx-translate-center')
+var modes = {
+  loading: require('./mode-loading'),
+  game: require('./mode-game')
+}
 
-var gameMode = require('./mode-game')
-
-var mode = gameMode
-
-// which ring should be at the bottom
-var segments = 2
-var innerRadius = 200
-
-
+var mode
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var audioCtx = new AudioContext()
 
+function changeMode(target) {
+  if (mode) {
+    mode.audioOff && mode.audioOff(audioCtx)
+  }
 
+  mode = modes[target]
+  mode.init && mode.init()
+  mode.audioOn && mode.audioOn(audioCtx)
+}
 
-gameMode.init(segments, innerRadius)
+changeMode('loading')
 
-gameMode.audioOn(audioCtx)
-
-
+rot = 0
 var ctx = fc(function() {
+
+  rot = (rot + 1) % 360
   ctx.clear()
   center(ctx)
-  mode.tick && mode.tick()
+  mode.tick && mode.tick(changeMode)
   mode.render(ctx)
 }, true)
 

@@ -24,12 +24,13 @@ module.exports = {
 
 var state = null
 var startingBounceVelocity = 12
-function init(segments, innerRadius) {
+var innerRadius = 200
+function init() {
   state = {
     gravity: .25,
     innerRadius: innerRadius,
     outerRadius: innerRadius + 50,
-    segments: segments,
+    segments: 2,
     userSelection: 0,
     ball: {
       velocity: -1,
@@ -210,7 +211,7 @@ function render(ctx) {
     ctx.fillStyle = 'white'
     ctx.save()
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.font = '40px monospace'
+      ctx.font = '40px amboy-black'
       ctx.fillText(state.score, 40, 40)
     ctx.restore()
   }
