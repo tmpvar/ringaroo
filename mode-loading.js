@@ -39,7 +39,7 @@ function init(segments, innerRadius) {
 
 function tick(changeMode) {
   if (state.removeLoadingScreen < Date.now()) {
-    changeMode('fail')
+    changeMode('menu')
   }
 }
 

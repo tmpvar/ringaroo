@@ -4,6 +4,8 @@ var createRing = require('./ctx-ring')
 var colorAtRingIndex = require('./color-at-ring-index')
 var roundedRect = require('./ctx-rounded-rect')
 var promptPlay = require('./prompt-play')
+var arrows = require('./ctx-keyboard-arrows')
+
 function newRandomTarget(current, segments) {
   var next = current
   var sentinel = 10
@@ -60,8 +62,13 @@ function tick(changeMode) {
 }
 
 function render(ctx) {
+  ctx.save()
+    ctx.translate(0, state.outerRadius)
+    arrows(ctx, state.outerRadius/2 + 15)
+  ctx.restore()
   state.ring(ctx, 8, state.innerRadius, state.outerRadius)
   promptPlay(ctx)
+
 }
 
 function wrapSelection(selection, segments) {

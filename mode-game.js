@@ -2,6 +2,7 @@ var circle = require('ctx-circle')
 
 var createRing = require('./ctx-ring')
 var colorAtRingIndex = require('./color-at-ring-index')
+var arrows = require('./ctx-keyboard-arrows')
 
 function newRandomTarget(current, segments) {
   var next = current
@@ -207,6 +208,11 @@ function tick(changeMode) {
 
 function render(ctx) {
   if (state.innerRadius > 0) {
+    ctx.save()
+      ctx.translate(0, state.outerRadius)
+      arrows(ctx, state.outerRadius/2 + 15)
+    ctx.restore()
+
     state.ring(ctx, state.segments, state.innerRadius, state.outerRadius)
 
     ctx.beginPath()

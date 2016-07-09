@@ -4,6 +4,7 @@ var createRing = require('./ctx-ring')
 var roundedRect = require('./ctx-rounded-rect')
 var menu = require('./mode-menu')
 var promptPlay = require('./prompt-play')
+var arrows = require('./ctx-keyboard-arrows')
 
 module.exports = {
   tick: tick,
@@ -18,6 +19,8 @@ var innerRadius = 200
 function init(nextState) {
   menu.init()
   state = Object.assign({
+    innerRadius: innerRadius,
+    outerRadius: innerRadius + 50,
     ring: createRing(0, function (index, segments) {
       var sat = Math.min((64 + index/segments * 128), 255).toString(16)
       return '#' + sat + sat + sat
@@ -33,7 +36,12 @@ function tick(changeMode) {
 }
 
 function render(ctx) {
-  state.ring(ctx, 8, 200, 250)
+  ctx.save()
+    ctx.translate(0, state.outerRadius)
+    arrows(ctx, state.outerRadius/2 + 15)
+  ctx.restore()
+
+  state.ring(ctx, 8, state.innerRadius, state.outerRadius)
 
   ctx.save()
     ctx.translate(0, 10)
