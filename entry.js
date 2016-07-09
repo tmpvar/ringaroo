@@ -2,20 +2,22 @@ var fc = require('fc')
 var center = require('ctx-translate-center')
 var modes = {
   loading: require('./mode-loading'),
-  game: require('./mode-game')
+  menu: require('./mode-menu'),
+  game: require('./mode-game'),
+  fail: require('./mode-fail')
 }
 
 var mode
 window.AudioContext = window.AudioContext||window.webkitAudioContext;
 var audioCtx = new AudioContext()
 
-function changeMode(target) {
+function changeMode(target, state) {
   if (mode) {
     mode.audioOff && mode.audioOff(audioCtx)
   }
 
   mode = modes[target]
-  mode.init && mode.init()
+  mode.init && mode.init(state)
   mode.audioOn && mode.audioOn(audioCtx)
 }
 

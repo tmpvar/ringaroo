@@ -76,10 +76,14 @@ function createBounceEffect(startRadius, endRadius, ms, color, width) {
   }
 }
 
-function tick() {
+function tick(changeMode) {
+  if (state.exitGame) {
+    return changeMode('menu')
+  }
+
   if (state.ball.position + state.ball.radius > state.innerRadius) {
     // success!
-    if (state.target === state.userSelection) {
+    if (!state.gameOver && state.target === state.userSelection) {
       state.bounceVelocity -= .1
       state.bounces += 1
 
@@ -154,7 +158,6 @@ function tick() {
         state.target = newRandomTarget(state.target, state.segments)
       }
       state.ball.velocity = state.bounceVelocity
-      console.log(state.score)
     // game over!
     } else {
       state.ball.position = state.innerRadius - state.ball.radius + 1
@@ -188,7 +191,10 @@ function tick() {
         state.ball.radius-=.1
 
         if (state.innerRadius < 0) {
-
+          changeMode('fail', {
+            score: state.score,
+            level: state.level
+          })
         }
         return
       }
@@ -242,6 +248,10 @@ function wrapSelection(selection, segments) {
 }
 
 function keyboard(e) {
+  if (state.gameOver) {
+    return
+  }
+
   if (e.keyCode === 39) {
     state.previousSelection = state.userSelection
     state.userSelection = wrapSelection(state.userSelection + 1, state.segments)
@@ -252,6 +262,10 @@ function keyboard(e) {
     state.previousSelection = state.userSelection
     state.userSelection = wrapSelection(state.userSelection - 1, state.segments)
     state.ring.next()
+  }
+
+  if (e.keyCode === 27) {
+    state.exitGame = true
   }
 }
 

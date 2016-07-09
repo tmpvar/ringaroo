@@ -5,8 +5,8 @@ module.exports = createRing
 var TAU = Math.PI*2
 var oneDegree = TAU/360
 
-function createRing(startingIndex) {
-
+function createRing(startingIndex, colorFunction) {
+  colorFunction = colorFunction || colorAtRingIndex
   var lastTargetIndex = startingIndex || 0
   var inter = 0
   var rotation = 0
@@ -38,7 +38,7 @@ function createRing(startingIndex) {
 
     if (animating !== false) {
       var d = animating - rotation
-      rotation += d / 2
+      rotation += d * 0.65
 
       if (Math.abs(d) < 1e-5) {
         animating = false
@@ -62,7 +62,7 @@ function createRing(startingIndex) {
           ctx.lineTo(radius, 0)
         ctx.closePath()
 
-        ctx.fillStyle = colorAtRingIndex(i, segments)
+        ctx.fillStyle = colorFunction(i, segments)
         ctx.fill()
         ctx.rotate(segmentSpan)
       }

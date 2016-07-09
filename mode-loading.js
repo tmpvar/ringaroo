@@ -16,7 +16,7 @@ function init(segments, innerRadius) {
     rotation: 0
   }
 
-  var minimumTime = 1000
+  var minimumTime = 10
 
   state.ring = createRing(state.target)
 
@@ -39,7 +39,7 @@ function init(segments, innerRadius) {
 
 function tick(changeMode) {
   if (state.removeLoadingScreen < Date.now()) {
-    changeMode('game')
+    changeMode('fail')
   }
 }
 
