@@ -3,6 +3,7 @@ var circle = require('ctx-circle')
 var createRing = require('./ctx-ring')
 var colorAtRingIndex = require('./color-at-ring-index')
 var arrows = require('./ctx-keyboard-arrows')
+var score = require('./ctx-score')
 
 function newRandomTarget(current, segments) {
   var next = current
@@ -88,14 +89,14 @@ function tick(changeMode) {
       state.bounceVelocity -= .1
       state.bounces += 1
 
-      var levelBounces = state.level > 1 ? Math.pow((state.level - 1)*2, 2) : state.bounces
+      var levelBounces = state.bounces
       var targetBounces = Math.pow(state.segments, 2)
 
       note(82.41 , .05).then(note.bind(0, 164.81 + (levelBounces / targetBounces) * 1000, .2))
 
       var placesMoved = Math.abs(Math.min(state.lastTarget - state.target, state.target - state.target)) || 1
 
-      state.score += placesMoved * ((state.danger) ? 250 : 1000)
+      state.score += state.level * placesMoved * ((state.danger) ? 250 : 1000)
 
       state.danger = false
 
@@ -121,6 +122,8 @@ function tick(changeMode) {
         state.segments += 2
         state.userSelection = 0
         state.ring.reset()
+        state.level++
+
         state.bounceVelocity = startingBounceVelocity
 
       } else {
@@ -220,12 +223,7 @@ function render(ctx) {
       ctx.fillStyle = colorAtRingIndex(state.target, state.segments)
       ctx.fill()
 
-    ctx.fillStyle = 'white'
-    ctx.save()
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.font = '40px amboy-black'
-      ctx.fillText(state.score, 40, 40)
-    ctx.restore()
+    score(ctx, state.score)
   }
 
   var effects = state.effects

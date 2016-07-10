@@ -5,6 +5,7 @@ var roundedRect = require('./ctx-rounded-rect')
 var menu = require('./mode-menu')
 var promptPlay = require('./prompt-play')
 var arrows = require('./ctx-keyboard-arrows')
+var score = require('./ctx-score')
 
 module.exports = {
   tick: tick,
@@ -50,8 +51,9 @@ function render(ctx) {
     ctx.fillText('GAME OVER', -100, -40)
     ctx.translate(0, 20)
     promptPlay(ctx)
-
   ctx.restore()
+
+  score(ctx, state.score)
 }
 
 function keyboard(e) {

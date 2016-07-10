@@ -3,12 +3,15 @@
   "author": "Elijah Insua <tmpvar@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "budo entry.js --live --open"
+    "dev": "budo entry.js --live --open",
+    "build": "browserify -e entry.js | uglifyjs > build/bundle.js"
   },
   "devDependencies": {
+    "browserify": "^13.0.1",
     "budo": "^8.3.0",
     "ctx-circle": "^1.0.0",
     "ctx-translate-center": "^1.0.0",
-    "fc": "^1.5.2"
+    "fc": "^1.5.2",
+    "uglifyjs": "^2.4.10"
   }
 }
