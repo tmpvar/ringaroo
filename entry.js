@@ -22,7 +22,7 @@ audioCtx.unlock = function() {
   var source = audioCtx.createBufferSource();
   source.buffer = buffer;
   source.connect(audioCtx.destination);
-  source.noteOn(0);
+  source.start(0);
 
   // by checking the play state after some time, we know if we're really unlocked
   setTimeout(function() {
@@ -70,9 +70,9 @@ var ctx = fc(function() {
       audioCtx.unlock()
       mode.keyboard && mode.keyboard({ keyCode: 13 })
     } else if (mouse.pos[0] < cx) {
-      mode.keyboard && mode.keyboard({ keyCode: 39 })
-    } else if (mouse.pos[0] >= cx) {
       mode.keyboard && mode.keyboard({ keyCode: 37 })
+    } else if (mouse.pos[0] >= cx) {
+      mode.keyboard && mode.keyboard({ keyCode: 39 })
     }
   }
 }, true)
