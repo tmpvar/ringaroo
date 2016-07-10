@@ -3,7 +3,7 @@
   "author": "Elijah Insua <tmpvar@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "budo entry.js --live --open",
+    "dev": "budo entry.js:build/bundle.js --live --open",
     "build": "browserify -e entry.js | uglifyjs > build/bundle.js"
   },
   "devDependencies": {

@@ -45,7 +45,7 @@ function changeMode(target, state) {
 
 changeMode('loading')
 var mouse = { down: false, pos: [0, 0], last: 0}
-var repeatTime = 100
+var repeatTime = 200
 
 rot = 0
 var ctx = fc(function() {
